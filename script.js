@@ -4,9 +4,22 @@ const noBtn = document.getElementById("noBtn");
 const title = document.getElementById("title");
 const subtitle = document.getElementById("subtitle");
 const confettiLayer = document.getElementById("confettiLayer");
+const celebrationMedia = document.getElementById("celebrationMedia");
 
 let shiftX = 0;
 let shiftY = 0;
+let celebrationImageAdded = false;
+
+function renderCelebrationImage() {
+  if (celebrationImageAdded || !celebrationMedia) return;
+
+  const img = document.createElement("img");
+  img.src = "https://images.pexels.com/photos/1540406/pexels-photo-1540406.jpeg?auto=compress&cs=tinysrgb&w=1200";
+  img.alt = "많은 사람들이 함께 환호하는 장면";
+  img.loading = "lazy";
+  celebrationMedia.appendChild(img);
+  celebrationImageAdded = true;
+}
 
 function applyNoPosition() {
   noBtn.style.transform = `translate(${shiftX}px, ${shiftY}px)`;
@@ -80,6 +93,7 @@ noBtn.setAttribute("tabindex", "-1");
 noBtn.setAttribute("aria-disabled", "true");
 
 yesBtn.addEventListener("click", () => {
+  renderCelebrationImage();
   document.body.classList.add("celebrate");
   title.textContent = "YEEEESSSS";
   subtitle.innerHTML = 'FYI: <a href="https://ae.kaist.ac.kr/boards/view/board_notice/13980" target="_blank" rel="noopener noreferrer">https://ae.kaist.ac.kr/boards/view/board_notice/13980</a>';
