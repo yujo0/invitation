@@ -1,0 +1,40 @@
+﻿<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>박사과정에 진학하시겠습니까?</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="page">
+    <section class="card" id="card">
+      <p class="kicker">AIM 석사생들을 위한 특별한 오퍼</p>
+      <h1 id="title">박사과정에 진학하시겠습니까?</h1>
+      <p id="subtitle">현명한 선택을 응원합니다.</p>
+      <div class="buttons" id="buttonZone">
+        <button class="btn btn-yes" id="yesBtn">YES</button>
+        <button class="btn btn-no" id="noBtn" aria-label="No button that tries to escape">NO</button>
+      </div>
+
+      <section class="celebration" id="celebration" aria-live="polite">
+        <h2>Excellent Decision!</h2>
+        <img
+          src="https://images.pexels.com/photos/1540406/pexels-photo-1540406.jpeg?auto=compress&cs=tinysrgb&w=1200"
+          alt="많은 사람들이 함께 환호하는 장면"
+          loading="lazy"
+        />
+        <p>공짜 커피 10장.</p>
+      </section>
+    </section>
+  </main>
+
+  <div class="confetti-layer" id="confettiLayer" aria-hidden="true"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
