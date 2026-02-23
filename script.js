@@ -1,6 +1,7 @@
 ﻿const buttonZone = document.getElementById("buttonZone");
 const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
+const kicker = document.getElementById("kicker");
 const title = document.getElementById("title");
 const subtitle = document.getElementById("subtitle");
 const confettiLayer = document.getElementById("confettiLayer");
@@ -20,6 +21,16 @@ function renderCelebrationImage() {
   celebrationMedia.appendChild(img);
   celebrationImageAdded = true;
 }
+
+function initTextContent() {
+  const initialTitle = "박사과정에 진학하시겠습니까?";
+  if (kicker) kicker.textContent = "AIM 석사생들을 위한 특별한 오퍼";
+  if (title) title.textContent = initialTitle;
+  if (subtitle) subtitle.textContent = "현명한 선택을 응원합니다.";
+  document.title = initialTitle;
+}
+
+initTextContent();
 
 function applyNoPosition() {
   noBtn.style.transform = `translate(${shiftX}px, ${shiftY}px)`;
@@ -96,6 +107,7 @@ yesBtn.addEventListener("click", () => {
   renderCelebrationImage();
   document.body.classList.add("celebrate");
   title.textContent = "YEEEESSSS";
+  document.title = "YEEEESSSS";
   subtitle.innerHTML = 'FYI: <a href="https://ae.kaist.ac.kr/boards/view/board_notice/13980" target="_blank" rel="noopener noreferrer">https://ae.kaist.ac.kr/boards/view/board_notice/13980</a>';
   launchConfetti(120);
 
