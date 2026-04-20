@@ -73,6 +73,14 @@ function moveNoFrom(pointerX, pointerY) {
   const zone = buttonZone.getBoundingClientRect();
   const rect = noBtn.getBoundingClientRect();
 
+  const pointerInsideButton =
+    pointerX >= rect.left &&
+    pointerX <= rect.right &&
+    pointerY >= rect.top &&
+    pointerY <= rect.bottom;
+
+  if (pointerInsideButton) return;
+
   const centerX = rect.left + rect.width / 2;
   const centerY = rect.top + rect.height / 2;
   const dx = centerX - pointerX;
