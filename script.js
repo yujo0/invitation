@@ -16,6 +16,7 @@ let shiftX = 0;
 let shiftY = 0;
 let celebrationImageAdded = false;
 let jumpScareActive = false;
+let jumpScareOpenedAt = 0;
 
 function preloadJumpScareImage() {
   const img = new Image();
@@ -115,12 +116,14 @@ function triggerJumpScare() {
   document.body.classList.add("haunted");
   jumpScare.setAttribute("aria-hidden", "false");
   jumpScareActive = true;
+  jumpScareOpenedAt = Date.now();
 
   if (navigator.vibrate) navigator.vibrate([40, 20, 40, 20, 100]);
 }
 
-function closeJumpScare() {
+function closeJumpScare(event) {
   if (!jumpScareActive || !jumpScare) return;
+  if (event && Date.now() - jumpScareOpenedAt < 700) return;
 
   document.body.classList.remove("haunted");
   jumpScare.setAttribute("aria-hidden", "true");
