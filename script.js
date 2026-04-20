@@ -9,8 +9,8 @@ const celebrationMedia = document.getElementById("celebrationMedia");
 const jumpScare = document.getElementById("jumpScare");
 const jumpScareImage = document.getElementById("jumpScareImage");
 
-const ghostImageUrl = "https://images.pexels.com/photos/34133716/pexels-photo-34133716.jpeg?auto=compress&cs=tinysrgb&w=1200";
-const ghostImageAlt = "어두운 밤 부엌 안에 서 있는 흑백 유령 코스튬 인물";
+const ghostImageUrl = "https://images.pexels.com/photos/5427450/pexels-photo-5427450.jpeg?auto=compress&cs=tinysrgb&w=1200";
+const ghostImageAlt = "검은 배경에서 정면을 바라보는 공포 광대 얼굴 클로즈업";
 
 let shiftX = 0;
 let shiftY = 0;
