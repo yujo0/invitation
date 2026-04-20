@@ -17,6 +17,7 @@ let shiftY = 0;
 let celebrationImageAdded = false;
 let jumpScareActive = false;
 let jumpScareOpenedAt = 0;
+let noPauseUntil = 0;
 
 function preloadJumpScareImage() {
   const img = new Image();
@@ -49,6 +50,10 @@ function applyNoPosition() {
   noBtn.style.transform = `translate(${shiftX}px, ${shiftY}px)`;
 }
 
+function pauseNoEscape(duration = 900) {
+  noPauseUntil = Date.now() + duration;
+}
+
 function clampPosition(left, top, zone, rect) {
   const minLeft = zone.left + 8;
   const maxLeft = zone.right - rect.width - 8;
@@ -70,6 +75,7 @@ function moveNoTo(left, top) {
 
 function moveNoFrom(pointerX, pointerY) {
   if (jumpScareActive || document.body.classList.contains("celebrate")) return;
+  if (Date.now() < noPauseUntil) return;
 
   const zone = buttonZone.getBoundingClientRect();
   const rect = noBtn.getBoundingClientRect();
@@ -145,6 +151,12 @@ window.addEventListener(
 
 window.addEventListener("resize", keepNoInsideZone);
 
+noBtn.addEventListener("mouseenter", () => {
+  pauseNoEscape();
+});
+noBtn.addEventListener("focus", () => {
+  pauseNoEscape();
+});
 noBtn.addEventListener("pointerdown", triggerJumpScare);
 noBtn.addEventListener("click", triggerJumpScare);
 jumpScare?.addEventListener("click", closeJumpScare);
