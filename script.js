@@ -6,10 +6,21 @@ const title = document.getElementById("title");
 const subtitle = document.getElementById("subtitle");
 const confettiLayer = document.getElementById("confettiLayer");
 const celebrationMedia = document.getElementById("celebrationMedia");
+const jumpScare = document.getElementById("jumpScare");
+const jumpScareImage = document.getElementById("jumpScareImage");
+
+const ghostImageUrl = "https://images.pexels.com/photos/34133716/pexels-photo-34133716.jpeg?auto=compress&cs=tinysrgb&w=1200";
+const ghostImageAlt = "어두운 밤 부엌 안에 서 있는 흑백 유령 코스튬 인물";
 
 let shiftX = 0;
 let shiftY = 0;
 let celebrationImageAdded = false;
+let jumpScareActive = false;
+
+function preloadJumpScareImage() {
+  const img = new Image();
+  img.src = ghostImageUrl;
+}
 
 function renderCelebrationImage() {
   if (celebrationImageAdded || !celebrationMedia) return;
@@ -31,6 +42,7 @@ function initTextContent() {
 }
 
 initTextContent();
+preloadJumpScareImage();
 
 function applyNoPosition() {
   noBtn.style.transform = `translate(${shiftX}px, ${shiftY}px)`;
@@ -56,6 +68,8 @@ function moveNoTo(left, top) {
 }
 
 function moveNoFrom(pointerX, pointerY) {
+  if (jumpScareActive || document.body.classList.contains("celebrate")) return;
+
   const zone = buttonZone.getBoundingClientRect();
   const rect = noBtn.getBoundingClientRect();
 
@@ -85,6 +99,26 @@ function keepNoInsideZone() {
   moveNoTo(clamped.left, clamped.top);
 }
 
+function triggerJumpScare() {
+  if (jumpScareActive || !jumpScare || !jumpScareImage) return;
+
+  jumpScareImage.src = ghostImageUrl;
+  jumpScareImage.alt = ghostImageAlt;
+  document.body.classList.add("haunted");
+  jumpScare.setAttribute("aria-hidden", "false");
+  jumpScareActive = true;
+
+  if (navigator.vibrate) navigator.vibrate([40, 20, 40, 20, 100]);
+}
+
+function closeJumpScare() {
+  if (!jumpScareActive || !jumpScare) return;
+
+  document.body.classList.remove("haunted");
+  jumpScare.setAttribute("aria-hidden", "true");
+  jumpScareActive = false;
+}
+
 window.addEventListener("mousemove", (event) => {
   moveNoFrom(event.clientX, event.clientY);
 });
@@ -100,10 +134,16 @@ window.addEventListener(
 
 window.addEventListener("resize", keepNoInsideZone);
 
-noBtn.setAttribute("tabindex", "-1");
-noBtn.setAttribute("aria-disabled", "true");
+noBtn.addEventListener("pointerdown", triggerJumpScare);
+noBtn.addEventListener("click", triggerJumpScare);
+jumpScare?.addEventListener("click", closeJumpScare);
+
+window.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") closeJumpScare();
+});
 
 yesBtn.addEventListener("click", () => {
+  closeJumpScare();
   renderCelebrationImage();
   document.body.classList.add("celebrate");
   title.textContent = "YEEEESSSS";

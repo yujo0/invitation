@@ -108,7 +108,8 @@ h1 {
   background: var(--no);
   color: #fff;
   will-change: transform;
-  pointer-events: none;
+  position: relative;
+  z-index: 1;
 }
 
 .celebration {
@@ -144,12 +145,68 @@ body.celebrate .celebration {
   display: block;
 }
 
+body.haunted {
+  overflow: hidden;
+}
+
 .confetti-layer {
   pointer-events: none;
   position: fixed;
   inset: 0;
   overflow: hidden;
   z-index: 20;
+}
+
+.jump-scare {
+  position: fixed;
+  inset: 0;
+  display: none;
+  place-items: center;
+  gap: 16px;
+  padding: 24px;
+  background:
+    radial-gradient(circle at center, rgba(170, 0, 0, 0.38) 0%, rgba(0, 0, 0, 0.92) 42%, #000 100%);
+  z-index: 40;
+  cursor: pointer;
+}
+
+.jump-scare::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.18), transparent 18%, transparent 82%, rgba(255, 0, 0, 0.15)),
+    repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0 2px, transparent 2px 6px);
+  mix-blend-mode: screen;
+  animation: haunt-flicker 180ms steps(2) 6;
+}
+
+.jump-scare img {
+  position: relative;
+  z-index: 1;
+  width: min(540px, 86vw);
+  max-height: 72vh;
+  object-fit: cover;
+  border: 3px solid #fff;
+  border-radius: 18px;
+  box-shadow: 0 0 24px rgba(255, 0, 0, 0.9);
+  transform: scale(0.7);
+  animation: haunt-pop 220ms ease-out forwards;
+}
+
+.jump-scare-copy {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  font-family: "Bangers", system-ui;
+  font-size: clamp(1.6rem, 8vw, 3.2rem);
+  letter-spacing: 0.08em;
+  color: #fff;
+  text-shadow: 0 0 16px rgba(255, 0, 0, 0.95);
+}
+
+body.haunted .jump-scare {
+  display: grid;
 }
 
 .confetti {
@@ -170,6 +227,29 @@ body.celebrate .celebration {
   }
 }
 
+@keyframes haunt-pop {
+  from {
+    transform: scale(0.7);
+    filter: grayscale(1) contrast(1.2) brightness(0.55);
+  }
+
+  to {
+    transform: scale(1);
+    filter: grayscale(1) contrast(1.45) brightness(0.9);
+  }
+}
+
+@keyframes haunt-flicker {
+  0%,
+  100% {
+    opacity: 0.2;
+  }
+
+  50% {
+    opacity: 0.72;
+  }
+}
+
 @media (max-width: 640px) {
   .card {
     padding: 20px;
@@ -178,5 +258,9 @@ body.celebrate .celebration {
 
   .btn {
     padding: 12px 22px;
+  }
+
+  .jump-scare {
+    padding: 18px;
   }
 }
