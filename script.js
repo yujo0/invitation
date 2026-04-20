@@ -108,7 +108,7 @@ yesBtn.addEventListener("click", () => {
   document.body.classList.add("celebrate");
   title.textContent = "YEEEESSSS";
   document.title = "YEEEESSSS";
-  subtitle.innerHTML = 'FYI: <a href="https://ae.kaist.ac.kr/boards/view/board_notice/13980" target="_blank" rel="noopener noreferrer">https://ae.kaist.ac.kr/boards/view/board_notice/13980</a>';
+  subtitle.innerHTML = 'FYI: <a href="https://admission.kaist.ac.kr/graduate/spring/rsub/2022_spring_no1" target="_blank" rel="noopener noreferrer">https://admission.kaist.ac.kr/graduate/spring/rsub/2022_spring_no1</a>';
   launchConfetti(120);
 
   if (navigator.vibrate) navigator.vibrate([80, 40, 80]);
